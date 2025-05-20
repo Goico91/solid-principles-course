@@ -16,4 +16,8 @@ public class Customer {
   public String getEmail() {
     return email;
   }
+
+  public double getDiscountRate() {
+    return 0.0;
+  }
 }
