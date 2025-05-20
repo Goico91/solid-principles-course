@@ -1,32 +1,16 @@
 package cohesion.wrong;
 
-class Pedido {
-  private final String clienteEmail;
-  private final double subtotal;
-
-  public Pedido(String clienteEmail, double subtotal) {
-    this.clienteEmail = clienteEmail;
-    this.subtotal = subtotal;
-  }
-
-  public String getClienteEmail() {
-    return clienteEmail;
-  }
-
-  public double getSubtotal() {
-    return subtotal;
-  }
-}
+record Pedido(String clienteEmail, double subtotal) {}
 
 class PedidoService {
   public void procesarPedido(Pedido pedido) {
     // Validación
-    if (pedido.getClienteEmail() == null) {
+    if (pedido.clienteEmail() == null) {
       throw new IllegalArgumentException("Falta email del cliente");
     }
 
     // Cálculo total
-    double total = pedido.getSubtotal() * 1.21;
+    double total = pedido.subtotal() * 1.21;
 
     // Guardar pedido
     System.out.println("Guardando pedido con total: " + total);
@@ -39,7 +23,7 @@ class PedidoService {
 
 class EmailService {
   public void enviarConfirmacion(Pedido pedido) {
-    System.out.println("Enviando email a " + pedido.getClienteEmail());
+    System.out.println("Enviando email a " + pedido.clienteEmail());
   }
 }
 

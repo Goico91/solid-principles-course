@@ -1,22 +1,6 @@
 package cohesion.correct;
 
-class Pedido {
-  private final String clienteEmail;
-  private final double subtotal;
-
-  public Pedido(String clienteEmail, double subtotal) {
-    this.clienteEmail = clienteEmail;
-    this.subtotal = subtotal;
-  }
-
-  public String getClienteEmail() {
-    return clienteEmail;
-  }
-
-  public double getSubtotal() {
-    return subtotal;
-  }
-}
+record Pedido(String clienteEmail, double subtotal) {}
 
 interface Notificador {
   void notificar(Pedido pedido);
@@ -25,13 +9,13 @@ interface Notificador {
 class EmailNotificador implements Notificador {
   @Override
   public void notificar(Pedido pedido) {
-    System.out.println("Enviando email a " + pedido.getClienteEmail());
+    System.out.println("Enviando email a " + pedido.clienteEmail());
   }
 }
 
 class ValidadorPedido {
   public void validar(Pedido pedido) {
-    if (pedido.getClienteEmail() == null) {
+    if (pedido.clienteEmail() == null) {
       throw new IllegalArgumentException("Falta email del cliente");
     }
   }
@@ -39,7 +23,7 @@ class ValidadorPedido {
 
 class CalculadoraTotal {
   public double calcularTotal(Pedido pedido) {
-    return pedido.getSubtotal() * 1.21;
+    return pedido.subtotal() * 1.21;
   }
 }
 

@@ -1,6 +1,6 @@
 package poo;
 
-// Clase base
+/** =================================== Clase base =================================== */
 class Vehiculo {
   private final String marca;
   private int velocidad;
@@ -25,14 +25,14 @@ class Vehiculo {
   }
 }
 
-// Herencia
+/** =================================== Herencia =================================== */
 class Coche extends Vehiculo {
   public Coche(String marca) {
     super(marca);
   }
 
   public void tocarClaxon() {
-    System.out.println("¡Beep beep!");
+    System.out.println("Ruido de claxon hecho con la boca");
   }
 }
 
@@ -41,12 +41,12 @@ class Moto extends Vehiculo {
     super(marca);
   }
 
-  public void hacerCaballito() {
-    System.out.println("¡Mira cómo levanto la rueda!");
+  public void derrapar() {
+    System.out.println("Haz un derrape chechu!");
   }
 }
 
-// Polimorfismo
+/** =================================== Polimorfismo =================================== */
 class Taller {
   public void probarVehiculo(Vehiculo v) {
     v.acelerar();
@@ -54,13 +54,22 @@ class Taller {
   }
 }
 
+/** =================================== Main =================================== */
 public class ApplicationPOOBasic {
   public static void main(String[] args) {
-    Vehiculo miCoche = new Coche("Toyota");
-    Vehiculo miMoto = new Moto("Yamaha");
+    // Clases
+    Coche coche = new Coche("BMV");
+    coche.tocarClaxon();
+    Moto moto = new Moto("BMV");
+    moto.derrapar();
 
+    // Herencia
+    Vehiculo toyota = new Coche("Toyota");
+    Vehiculo yamaha = new Moto("Yamaha");
+
+    // Polimorfismo
     Taller taller = new Taller();
-    taller.probarVehiculo(miCoche);
-    taller.probarVehiculo(miMoto);
+    taller.probarVehiculo(toyota);
+    taller.probarVehiculo(yamaha);
   }
 }
