@@ -1,50 +1,17 @@
 package wrong;
 
-class Customer {
-  private final String name;
-  private final String email;
+record Customer(String name, String email) {}
 
-  public Customer(String name, String email) {
-    this.name = name;
-    this.email = email;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-}
-
-class Order {
-  private final Customer customer;
-  private final double amount;
-
-  public Order(Customer customer, double amount) {
-    this.customer = customer;
-    this.amount = amount;
-  }
-
-  public Customer getCustomer() {
-    return customer;
-  }
-
-  public double getAmount() {
-    return amount;
-  }
-}
+record Order(Customer customer, double amount) {}
 
 class MySQLOrderRepository {
   public void save(Order order) {
-    System.out.println(
-        "Order from customer: " + order.getCustomer().getName() + " saved correctly");
+    System.out.println("Order from customer: " + order.customer().name() + " saved correctly");
   }
 }
 
 class OrderService {
-  private MySQLOrderRepository repository = new MySQLOrderRepository();
+  private final MySQLOrderRepository repository = new MySQLOrderRepository();
 
   public void saveOrder(Order order) {
     repository.save(order);
@@ -52,5 +19,11 @@ class OrderService {
 }
 
 public class DependencyInversion {
-  public static void main(String[] args) {}
+  public static void main(String[] args) {
+    Customer customer = new Customer("Goico", "goico@email.com");
+    Order order = new Order(customer, 10);
+
+    OrderService orderService = new OrderService();
+    orderService.saveOrder(order);
+  }
 }

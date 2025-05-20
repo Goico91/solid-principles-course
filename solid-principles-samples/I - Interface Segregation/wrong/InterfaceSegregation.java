@@ -6,6 +6,8 @@ interface Worker {
   void eat();
 
   void sleep();
+
+  void restMode();
 }
 
 class RobotWorker implements Worker {
@@ -24,7 +26,6 @@ class RobotWorker implements Worker {
   }
 
   public void restMode() {
-    // No aplica
     System.out.println("Recuperando energía");
   }
 }
@@ -44,10 +45,16 @@ class HumanWorker implements Worker {
 
   public void restMode() {
     // No aplica
-    System.out.println("Recuperando energía");
+    throw new UnsupportedOperationException();
   }
 }
 
 public class InterfaceSegregation {
-  public static void main(String[] args) {}
+  public static void main(String[] args) {
+    RobotWorker chatGPT = new RobotWorker();
+    chatGPT.eat();
+
+    HumanWorker goico = new HumanWorker();
+    goico.eat();
+  }
 }
